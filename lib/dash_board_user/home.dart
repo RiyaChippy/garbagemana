@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:garbagemana/dash_board_user/Payment.dart';
-
-void main() {
-  runApp(const MyApp());
-}
+import 'package:garbagemana/dash_board_user/Payment.dart'; // Assuming this is where PaymentAndAddressScreen is defined
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -36,6 +34,32 @@ class _UserHomeState extends State<UserHome> {
   ];
 
   final List<Map<String, dynamic>> selectedWasteTypes = [];
+  late User? currentUser; // Firebase User object
+  String userName = ''; // Variable to hold user's name
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUser(); // Fetch user details when widget initializes
+  }
+
+  void fetchUser() async {
+    currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      // Fetch additional user details from Firestore
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUser!.uid)
+          .get();
+
+      if (userDoc.exists) {
+        setState(() {
+          userName =
+              userDoc['name']; // Assuming 'name' field exists in Firestore
+        });
+      }
+    }
+  }
 
   void _navigateToPaymentAndAddress(BuildContext context) {
     Navigator.push(
@@ -83,9 +107,9 @@ class _UserHomeState extends State<UserHome> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          'Hello Name',
-                          style: TextStyle(
+                        Text(
+                          'Hello $userName', // Display fetched user's name
+                          style: const TextStyle(
                             fontSize: 28, // Increased font size
                             fontWeight: FontWeight.bold,
                           ),

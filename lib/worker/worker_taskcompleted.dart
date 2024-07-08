@@ -12,6 +12,8 @@ class TaskCountPage extends StatefulWidget {
 class _TaskCountPageState extends State<TaskCountPage> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   int completedTasks = 0;
+  String currentWorkerId =
+      'workerDocumentID'; // Replace with actual worker document ID
 
   @override
   void initState() {
@@ -21,8 +23,10 @@ class _TaskCountPageState extends State<TaskCountPage> {
 
   void fetchCompletedTasks() async {
     try {
-      QuerySnapshot<Map<String, dynamic>> historySnapshot =
-          await _firestore.collection('history').get();
+      QuerySnapshot<Map<String, dynamic>> historySnapshot = await _firestore
+          .collection('history')
+          .where('workerId', isEqualTo: currentWorkerId) // Filter by workerId
+          .get();
 
       setState(() {
         completedTasks = historySnapshot.size;

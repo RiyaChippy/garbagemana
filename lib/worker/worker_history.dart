@@ -12,6 +12,7 @@ class HistoryPage extends StatefulWidget {
 class _HistoryPageState extends State<HistoryPage> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<Task> _completedTasks = [];
+  String currentWorkerId = ''; // Assuming you have the current worker's ID
 
   @override
   void initState() {
@@ -21,8 +22,11 @@ class _HistoryPageState extends State<HistoryPage> {
 
   Future<void> _fetchCompletedTasks() async {
     try {
-      QuerySnapshot<Map<String, dynamic>> querySnapshot =
-          await _firestore.collection('history').get();
+      QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firestore
+          .collection('history')
+          .where('workerId', isEqualTo: currentWorkerId) // Filter by workerId
+          .get();
+
       List<Task> completedTasks = querySnapshot.docs.map((doc) {
         return Task.fromFirestore(doc);
       }).toList();

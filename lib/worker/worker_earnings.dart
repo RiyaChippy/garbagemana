@@ -14,6 +14,8 @@ class _EarningsPageState extends State<EarningsPage> {
   double totalDeliveryBonus = 0.0; // Initialize with 0 bonus
   final double baseWage = 500.0; // Set the base wage to 500
   final double targetAmount = 1000.0; // Set the target amount to 1000
+  String currentWorkerId =
+      'workerDocumentID'; // Replace with actual worker document ID
 
   @override
   void initState() {
@@ -23,8 +25,11 @@ class _EarningsPageState extends State<EarningsPage> {
 
   void fetchTotalDeliveryBonus() async {
     try {
-      QuerySnapshot historySnapshot =
-          await _firestore.collection('history').get();
+      QuerySnapshot historySnapshot = await _firestore
+          .collection('history')
+          .where('workerId', isEqualTo: currentWorkerId) // Filter by workerId
+          .get();
+
       double total = 0.0;
 
       for (var doc in historySnapshot.docs) {
@@ -49,15 +54,11 @@ class _EarningsPageState extends State<EarningsPage> {
 
   void updateEarnings(double totalDeliveryBonus) async {
     try {
-      // Assuming you have the worker's document ID stored somewhere
-      String workerDocId =
-          'workerDocumentID'; // Replace with actual worker document ID
-
       // Calculate the total earnings
       double totalEarnings = baseWage + totalDeliveryBonus;
 
       // Update the earnings in the worker's document
-      await _firestore.collection('earnings').doc(workerDocId).set({
+      await _firestore.collection('earnings').doc(currentWorkerId).set({
         'totalDeliveryBonus': totalDeliveryBonus,
         'baseWage': baseWage,
         'totalEarnings': totalEarnings,
