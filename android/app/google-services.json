@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "246309298185",
+    "project_id": "garbagemana",
+    "storage_bucket": "garbagemana.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246309298185:android:94fd5b9047f815191518d8",
+        "android_client_info": {
+          "package_name": "com.example"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsMDHRXpSfgp8zVoq73GZK743Xgy8b89E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246309298185:android:4a14dff3ff45e2c21518d8",
+        "android_client_info": {
+          "package_name": "com.example.garbagemana"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsMDHRXpSfgp8zVoq73GZK743Xgy8b89E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
