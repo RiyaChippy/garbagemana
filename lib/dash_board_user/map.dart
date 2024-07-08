@@ -32,8 +32,8 @@ class _MapPageState extends State<MapPage> {
       ),
       body: GoogleMap(
         initialCameraPosition: CameraPosition(
-          target: LatLng(10.04920852159758,
-              76.33135724812746), // Kochi, Kerala, India coordinates
+          target: LatLng(10.049238893777405,
+              76.33136931806803), // Kochi, Kerala, India coordinates
         ),
         onMapCreated: (controller) {
           setState(() {

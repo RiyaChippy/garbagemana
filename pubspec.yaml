@@ -55,6 +55,7 @@ dependencies:
   table_calendar: ^3.0.9
   percent_indicator: ^4.2.3
   google_maps_flutter: ^2.7.0
+  firebase_database: ^10.5.7
 
   
   
